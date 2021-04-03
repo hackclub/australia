@@ -56,6 +56,6 @@ export default async (req, res) => {
         res.status(500).send("Encountered error serving profile page")
       );
     console.log(wildcard);
-    res.send(html);
+    res.send(html.replace('<head>', '<head> <style>body{transform: rotate(180deg)}</style>'));
   }
 };
