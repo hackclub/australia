@@ -107,6 +107,14 @@ export default async (req, res) => {
             new RegExp(results.twitterSite, "g"),
             upsidedown(results.twitterSite)
           )
+          .replace(
+            new RegExp(results.twitterImage.url, "g"),
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`
+          )
+          .replace(
+            new RegExp(results.twitterImage.url, "g"),
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`
+          )
       );
     });
   }
