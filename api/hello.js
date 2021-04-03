@@ -85,7 +85,9 @@ export default async (req, res) => {
           upsidedown(results.ogTitle)
         )
       );
-      console.log(`https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`)
+      console.log(
+        `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`
+      );
       res.send(
         html
           .replace(
@@ -94,15 +96,17 @@ export default async (req, res) => {
           )
           .replace(
             new RegExp(results.twitterDescription, "g"),
-            upsidedown(results.twitterDescription ? results.twitterDescription : '')
+            upsidedown(
+              results.twitterDescription ? results.twitterDescription : ""
+            )
           )
           .replace(
             new RegExp(results.ogTitle, "g"),
-            upsidedown(results.ogTitle ? results.ogTitle : '')
+            upsidedown(results.ogTitle ? results.ogTitle : "")
           )
           .replace(
             new RegExp(results.ogSiteName, "g"),
-            upsidedown(results.ogSiteName ? results.ogSiteName : '')
+            upsidedown(results.ogSiteName ? results.ogSiteName : "")
           )
           .replace(
             new RegExp(results.twitterSite, "g"),
@@ -110,11 +114,15 @@ export default async (req, res) => {
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
-            `https://flipped-images.hackclub.dev/og.png?theme=light&images=https%3A%2F%2Fcloud-epiki4yvg.vercel.app%2F2020-09-09_drbp62kayjuyyy0ek89mf9fwcp5t4kuz.jpeg`
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
+              .replace("https://", "https%3A%2F%2F")
+              .replace(new RegExp("/", "%2F"))}`
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
-            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url.replace('https://', 'https%3A%2F%2F')}`
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
+              .replace("https://", "https%3A%2F%2F")
+              .replace(new RegExp("/", "%2F"))}`
           )
       );
     });
