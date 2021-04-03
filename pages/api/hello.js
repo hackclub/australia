@@ -5,12 +5,17 @@ export default async (req, res) => {
   let wildcard = req.headers.host.split(".")[0];
 
   const { host } = req.headers;
-  if(req.query.path.includes('.')){
-    res.redirect(`https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${req.query.path}`)
-  }
-  else{
+  if (typeof req.query.path != "undefined" ? req.query.path.includes(".") : false) {
+    res.redirect(
+      `https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${
+        req.query.path
+      }`
+    );
+  } else {
     let html = await fetch(
-      `https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${req.query.path}`
+      `https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${
+        req.query.path
+      }`
     )
       .then((r) => r.text())
       .catch(() =>
@@ -19,5 +24,4 @@ export default async (req, res) => {
     console.log(wildcard);
     res.send(html);
   }
-  
 };
