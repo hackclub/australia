@@ -8,13 +8,11 @@ module.exports = {
     return [
       {
         source: '/',
-        destination: '/api/hello',
-        permanent: true,
+        destination: '/api/hello'
       },
       {
         source: '/:slug*',
-        destination: '/?path=:slug*',
-        permanent: true,
+        destination: '/?path=:slug*'
       },
     ]
   },
