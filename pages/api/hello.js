@@ -6,7 +6,7 @@ export default async (req, res) => {
 
   const { host } = req.headers;
   let html = await fetch(
-    `https://${wildcard == "hackclub" ? "" : `${wildcard}.`}hackclub.com/${req.query.path}`
+    `https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${req.query.path}`
   )
     .then((r) => r.text())
     .catch(() =>
