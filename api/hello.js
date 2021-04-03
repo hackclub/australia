@@ -114,22 +114,10 @@ export default async (req, res) => {
           )
           .replace(
             typeof results.ogImage.url == "undefined"
-              ? (new RegExp(
-                  results.ogImage
-                    ? results.ogImage.url
-                    : "hibeiupfhzdpiughipudrghiuershigpuhrdgipuhresptiuhguerihgpiudhrxpdgsepiugh",
-                  "g"
-                ),
-                `https://flipped-images.hackclub.dev/og.png?theme=light&images=${
-                  typeof results.ogImage != "undefined"
-                    ? (typeof results.ogImage.url != "undefined"
-                        ? results.ogImage.url
-                        : ""
-                      )
-                        .replace("https://", "https%3A%2F%2F")
-                        .replace(new RegExp("/", "g"), "%2F")
-                    : "jirenhtbijstrfnuistrniuebribreui"
-                }`)
+              ? (new RegExp(results.ogImage.url, "g"),
+                `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
+                  .replace("https://", "https%3A%2F%2F")
+                  .replace(new RegExp("/", "g"), "%2F")}`)
               : ("gribipzurdghuerhpigurhpsiughspreiuhpor",
                 "gribipzurdghuerhpigurhpsiughspreiuhpor")
           )
