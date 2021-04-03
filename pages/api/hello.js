@@ -12,6 +12,6 @@ export default async (req, res) => {
     .catch(() =>
       res.status(500).send("Encountered error serving profile page")
     );
-    console.log(req)
+    console.log(wildcard)
   res.send(req)
 }
