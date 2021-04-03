@@ -110,27 +110,30 @@ export default async (req, res) => {
           )
           .replace(
             new RegExp(results.twitterSite, "g"),
-            upsidedown(results.twitterSite ? results.twitterSite : '')
+            upsidedown(results.twitterSite ? results.twitterSite : "")
           )
           .replace(
-            new RegExp(results.twitterImage.url, "g"),
-            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
-              .replace("https://", "https%3A%2F%2F")
-              .replace(new RegExp("/", "g"), "%2F")}`
+            new RegExp(
+              results.ogImage
+                ? results.ogImage.url
+                : "hibeiupfhzdpiughipudrghiuershigpuhrdgipuhresptiuhguerihgpiudhrxpdgsepiugh",
+              "g"
+            ),
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${
+              results.ogImage
+                ? results.ogImage.url
+                    .replace("https://", "https%3A%2F%2F")
+                    .replace(new RegExp("/", "g"), "%2F")
+                : "jirenhtbijstrfnuistrniuebribreui"
+            }`
           )
           .replace(
-            new RegExp(results.twitterImage.url, "g"),
-            `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
-              .replace("https://", "https%3A%2F%2F")
-              .replace(new RegExp("/", "g"), "%2F")}`
+            "https://assets.hackclub.com/favicons/favicon-32x32.png",
+            "https://australia.hackclub.dev/favicon.ico"
           )
           .replace(
-            'https://assets.hackclub.com/favicons/favicon-32x32.png',
-            'https://australia.hackclub.dev/favicon.ico'
-          )
-          .replace(
-            'https://assets.hackclub.com/favicons/favicon-16x16.png',
-            'https://australia.hackclub.dev/favicon.ico'
+            "https://assets.hackclub.com/favicons/favicon-16x16.png",
+            "https://australia.hackclub.dev/favicon.ico"
           )
       );
     });
