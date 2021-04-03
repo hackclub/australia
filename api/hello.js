@@ -124,6 +124,14 @@ export default async (req, res) => {
               .replace("https://", "https%3A%2F%2F")
               .replace(new RegExp("/", "g"), "%2F")}`
           )
+          .replace(
+            'https://assets.hackclub.com/favicons/favicon-32x32.png',
+            'https://australia.hackclub.dev/favicon.ico'
+          )
+          .replace(
+            'https://assets.hackclub.com/favicons/favicon-16x16.png',
+            'https://australia.hackclub.dev/favicon.ico'
+          )
       );
     });
   }
