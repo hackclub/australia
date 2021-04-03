@@ -13,7 +13,7 @@ module.exports = {
       },
       {
         source: '/:slug*',
-        destination: '/?path=::slug*',
+        destination: '/?path=:slug*',
         permanent: true,
       },
     ]
