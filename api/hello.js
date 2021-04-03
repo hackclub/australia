@@ -88,7 +88,51 @@ export default async (req, res) => {
       console.log(
         `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`
       );
-      if (typeof results.ogImage.url == "undefined") {
+
+      try {
+        res.send(
+          html
+            .replace(
+              "<head>",
+              "<head> <style>body{transform: rotate(180deg)}</style>"
+            )
+            .replace(
+              new RegExp(results.twitterDescription, "g"),
+              upsidedown(
+                results.twitterDescription ? results.twitterDescription : ""
+              )
+            )
+            .replace(
+              new RegExp(results.ogTitle, "g"),
+              upsidedown(results.ogTitle ? results.ogTitle : "")
+            )
+            .replace(
+              new RegExp(results.ogSiteName, "g"),
+              upsidedown(results.ogSiteName ? results.ogSiteName : "")
+            )
+            .replace(
+              new RegExp(results.twitterSite, "g"),
+              upsidedown(results.twitterSite ? results.twitterSite : "")
+            )
+            .replace(
+              typeof results.ogImage.url == "undefined"
+                ? (new RegExp(results.ogImage.url, "g"),
+                  `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
+                    .replace("https://", "https%3A%2F%2F")
+                    .replace(new RegExp("/", "g"), "%2F")}`)
+                : ("gribipzurdghuerhpigurhpsiughspreiuhpor",
+                  "gribipzurdghuerhpigurhpsiughspreiuhpor")
+            )
+            .replace(
+              "https://assets.hackclub.com/favicons/favicon-32x32.png",
+              "https://australia.hackclub.dev/favicon.ico"
+            )
+            .replace(
+              "https://assets.hackclub.com/favicons/favicon-16x16.png",
+              "https://australia.hackclub.dev/favicon.ico"
+            )
+        );
+      } catch {
         res.send(
           html
             .replace(
@@ -123,48 +167,6 @@ export default async (req, res) => {
             )
         );
       }
-      res.send(
-        html
-          .replace(
-            "<head>",
-            "<head> <style>body{transform: rotate(180deg)}</style>"
-          )
-          .replace(
-            new RegExp(results.twitterDescription, "g"),
-            upsidedown(
-              results.twitterDescription ? results.twitterDescription : ""
-            )
-          )
-          .replace(
-            new RegExp(results.ogTitle, "g"),
-            upsidedown(results.ogTitle ? results.ogTitle : "")
-          )
-          .replace(
-            new RegExp(results.ogSiteName, "g"),
-            upsidedown(results.ogSiteName ? results.ogSiteName : "")
-          )
-          .replace(
-            new RegExp(results.twitterSite, "g"),
-            upsidedown(results.twitterSite ? results.twitterSite : "")
-          )
-          .replace(
-            typeof results.ogImage.url == "undefined"
-              ? (new RegExp(results.ogImage.url, "g"),
-                `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
-                  .replace("https://", "https%3A%2F%2F")
-                  .replace(new RegExp("/", "g"), "%2F")}`)
-              : ("gribipzurdghuerhpigurhpsiughspreiuhpor",
-                "gribipzurdghuerhpigurhpsiughspreiuhpor")
-          )
-          .replace(
-            "https://assets.hackclub.com/favicons/favicon-32x32.png",
-            "https://australia.hackclub.dev/favicon.ico"
-          )
-          .replace(
-            "https://assets.hackclub.com/favicons/favicon-16x16.png",
-            "https://australia.hackclub.dev/favicon.ico"
-          )
-      );
     });
   }
 };
