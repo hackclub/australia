@@ -5,7 +5,7 @@ export default async (req, res) => {
   let wildcard = req.headers.host.split(".")[0];
 
   const { host } = req.headers;
-  if(req.query.path.inculdes('.')){
+  if(req.query.path.includes('.')){
     res.redirect(`https://${wildcard == "australia" ? "" : `${wildcard}.`}hackclub.com/${req.query.path}`)
   }
   else{
