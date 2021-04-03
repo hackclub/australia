@@ -88,41 +88,6 @@ export default async (req, res) => {
       console.log(
         `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url}`
       );
-      if (typeof results.ogImage.url == "undefined") {
-        res.send(
-          html
-            .replace(
-              "<head>",
-              "<head> <style>body{transform: rotate(180deg)}</style>"
-            )
-            .replace(
-              new RegExp(results.twitterDescription, "g"),
-              upsidedown(
-                results.twitterDescription ? results.twitterDescription : ""
-              )
-            )
-            .replace(
-              new RegExp(results.ogTitle, "g"),
-              upsidedown(results.ogTitle ? results.ogTitle : "")
-            )
-            .replace(
-              new RegExp(results.ogSiteName, "g"),
-              upsidedown(results.ogSiteName ? results.ogSiteName : "")
-            )
-            .replace(
-              new RegExp(results.twitterSite, "g"),
-              upsidedown(results.twitterSite ? results.twitterSite : "")
-            )
-            .replace(
-              "https://assets.hackclub.com/favicons/favicon-32x32.png",
-              "https://australia.hackclub.dev/favicon.ico"
-            )
-            .replace(
-              "https://assets.hackclub.com/favicons/favicon-16x16.png",
-              "https://australia.hackclub.dev/favicon.ico"
-            )
-        );
-      }
       res.send(
         html
           .replace(
