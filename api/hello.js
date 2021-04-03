@@ -113,13 +113,10 @@ export default async (req, res) => {
             upsidedown(results.twitterSite ? results.twitterSite : "")
           )
           .replace(
-            typeof results.ogImage.url == "undefined"
-              ? (new RegExp(results.ogImage.url, "g"),
+            new RegExp(results.ogImage.url, "g"),
                 `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
                   .replace("https://", "https%3A%2F%2F")
-                  .replace(new RegExp("/", "g"), "%2F")}`)
-              : ("gribipzurdghuerhpigurhpsiughspreiuhpor",
-                "gribipzurdghuerhpigurhpsiughspreiuhpor")
+                  .replace(new RegExp("/", "g"), "%2F")}`
           )
           .replace(
             "https://assets.hackclub.com/favicons/favicon-32x32.png",
