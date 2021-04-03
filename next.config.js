@@ -2,8 +2,8 @@ module.exports = {
   async redirects() {
     return [
       {
-        source: '/:slug',
-        destination: '/api/hello?path=:slug',
+        source: '/:slug/:slug2',
+        destination: '/api/hello?path=:slug/:slug2',
         permanent: true,
       },
     ]
