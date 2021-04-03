@@ -12,7 +12,7 @@ module.exports = {
       },
       {
         source: '/:slug*',
-        destination: '/?path=:slug*'
+        destination: '/api/hello?path=:slug*'
       },
     ]
   },
