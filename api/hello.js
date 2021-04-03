@@ -116,13 +116,13 @@ export default async (req, res) => {
             new RegExp(results.twitterImage.url, "g"),
             `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
               .replace("https://", "https%3A%2F%2F")
-              .replace(new RegExp("/", "%2F"))}`
+              .replace(new RegExp("/", "g"), "%2F")}`
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
             `https://flipped-images.hackclub.dev/og.png?theme=light&images=${results.ogImage.url
               .replace("https://", "https%3A%2F%2F")
-              .replace(new RegExp("/", "%2F"))}`
+              .replace(new RegExp("/", "g"), "%2F")}`
           )
       );
     });
