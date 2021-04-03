@@ -110,7 +110,7 @@ export default async (req, res) => {
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
-            `https://flipped-images.hackclub.dev/og.png?theme=light&images=https://cloud-epiki4yvg.vercel.app/2020-09-09_drbp62kayjuyyy0ek89mf9fwcp5t4kuz.jpeg`
+            `https://flipped-images.hackclub.dev/og.png?theme=light&images=https%3A%2F%2Fcloud-epiki4yvg.vercel.app%2F2020-09-09_drbp62kayjuyyy0ek89mf9fwcp5t4kuz.jpeg`
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
