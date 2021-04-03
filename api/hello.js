@@ -120,8 +120,11 @@ export default async (req, res) => {
               "g"
             ),
             `https://flipped-images.hackclub.dev/og.png?theme=light&images=${
-              results.ogImage != 'undefined'
-                ? results.ogImage.url
+              typeof results.ogImage != "undefined"
+                ? (typeof results.ogImage.url != "undefined"
+                    ? results.ogImage.url
+                    : ""
+                  )
                     .replace("https://", "https%3A%2F%2F")
                     .replace(new RegExp("/", "g"), "%2F")
                 : "jirenhtbijstrfnuistrniuebribreui"
