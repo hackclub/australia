@@ -1,6 +1,7 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/api/hello" },
+    { "source": "/_next/image", "destination": "https://hackclub.com/_next/image" },
     { "source": "/:slug*",  "destination": "/api/hello?path=:slug*" }
   ]
 }

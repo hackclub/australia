@@ -3,14 +3,14 @@
 export default async (req, res) => {
   const fetch = require("node-fetch");
   let wildcard = req.headers.host.split(".")[0];
-  console.log("hi!");
+  console.log(wildcard);
   const { host } = req.headers;
   if (
     typeof req.query.path != "undefined" ? req.query.path.includes(".") : false
   ) {
     res.redirect(
       `https://${
-        wildcard == "australia" || wildcard == "localhost:3000"
+        wildcard == "australia" || wildcard == "localhost:3000" || wildcard.includes("localhost")
           ? ""
           : `${wildcard}.`
       }hackclub.com/${
@@ -22,9 +22,10 @@ export default async (req, res) => {
       ? req.query.path.includes("_next")
       : false
   ) {
+    console.log(req.query.path)
     res.redirect(
       `https://${
-        wildcard == "australia" || wildcard == "localhost:3000"
+        wildcard == "australia" || wildcard == "localhost:3000" || wildcard.includes("localhost")
           ? ""
           : `${wildcard}.`
       }hackclub.com/${
@@ -34,7 +35,7 @@ export default async (req, res) => {
   } else {
     console.log(
       `https://${
-        wildcard == "australia" || wildcard == "localhost:3000"
+        wildcard == "australia" || wildcard == "localhost:3000" || wildcard.includes("localhost")
           ? ""
           : `${wildcard}.`
       }hackclub.com/${
@@ -43,7 +44,7 @@ export default async (req, res) => {
     );
     let html = await fetch(
       `https://${
-        wildcard == "australia" || wildcard == "localhost:3000"
+        wildcard == "australia" || wildcard == "localhost:3000" || wildcard.includes("localhost")
           ? ""
           : `${wildcard}.`
       }hackclub.com/${
@@ -55,6 +56,6 @@ export default async (req, res) => {
         res.status(500).send("Encountered error serving profile page")
       );
     console.log(wildcard);
-    res.send(html.replaceAll("/_next", "https://hackclub.com/_next"));
+    res.send(html);
   }
 };
