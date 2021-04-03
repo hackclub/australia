@@ -110,7 +110,7 @@ export default async (req, res) => {
           )
           .replace(
             new RegExp(results.twitterSite, "g"),
-            upsidedown(results.twitterSite)
+            upsidedown(results.twitterSite ? results.twitterSite : '')
           )
           .replace(
             new RegExp(results.twitterImage.url, "g"),
