@@ -6,12 +6,12 @@ export default async (req, res) => {
 
   const { host } = req.headers;
   let html = await fetch(
-    `https://hackclub.com/`
+    `https://${wildcard == "hackclub" ? "" : `${wildcard}.`}hackclub.com/`
   )
     .then((r) => r.text())
     .catch(() =>
       res.status(500).send("Encountered error serving profile page")
     );
-    console.log(wildcard)
-  res.send(req)
-}
+  console.log(wildcard);
+  res.send(html);
+};
