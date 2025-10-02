@@ -1,9 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 export default async (req, res) => {
   const fetch = require("node-fetch");
   const ogs = require("open-graph-scraper");
-  var upsidedown = require("upsidedown");
   let wildcard = req.headers.host.split(".")[0];
   console.log(wildcard);
   const { host } = req.headers;
@@ -77,12 +74,12 @@ export default async (req, res) => {
       }`,
     };
     ogs(options, (error, results, response) => {
-      console.log("error:", error); // This is returns true or false. True if there was a error. The error it self is inside the results object.
-      console.log("results:", results); // This contains all of the Open Graph results
+      console.log("error:", error);
+      console.log("results:", results);
       console.log(
         "Don’t run your coding club alone – Hack Club".replace(
           new RegExp(results.ogTitle, "g"),
-          upsidedown(results.ogTitle)
+          results.ogTitle
         )
       );
       console.log(
@@ -92,25 +89,23 @@ export default async (req, res) => {
         html
           .replace(
             "<head>",
-            "<head> <style>body{transform: rotate(180deg)}</style>"
+            "<head> <style>body{}</style>"
           )
           .replace(
             new RegExp(results.twitterDescription, "g"),
-            upsidedown(
-              results.twitterDescription ? results.twitterDescription : ""
-            )
+            results.twitterDescription ? results.twitterDescription : ""
           )
           .replace(
             new RegExp(results.ogTitle, "g"),
-            upsidedown(results.ogTitle ? results.ogTitle : "")
+            results.ogTitle ? results.ogTitle : ""
           )
           .replace(
             new RegExp(results.ogSiteName, "g"),
-            upsidedown(results.ogSiteName ? results.ogSiteName : "")
+            results.ogSiteName ? results.ogSiteName : ""
           )
           .replace(
             new RegExp(results.twitterSite, "g"),
-            upsidedown(results.twitterSite ? results.twitterSite : "")
+            results.twitterSite ? results.twitterSite : ""
           )
           .replace(
             new RegExp(results.ogImage.url, "g"),
