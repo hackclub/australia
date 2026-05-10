@@ -30,6 +30,8 @@
     "animated-value": "^0.2.4",
     "animejs": "^3.2.2",
     "axios": "^1.16.0",
+    "baseline-browser-mapping": "^2.10.29",
+    "caniuse-lite": "^1.0.30001792",
     "cookies-next": "^4.3.0",
     "country-list-js": "^3.1.8",
     "cursor-effects": "^1.0.18",
