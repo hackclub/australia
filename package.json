@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "node-fetch": "^2.6.1",
-    "open-graph-scraper": "^4.8.1",
+    "node-fetch": "^3.3.2",
+    "open-graph-scraper": "^6.11.0",
     "upsidedown": "^0.0.5"
   }
 }
