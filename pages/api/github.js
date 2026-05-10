@@ -8,7 +8,7 @@ const getMessage = (type, payload, repo) => {
     case 'PushEvent':
       return payload.commits?.[0]?.message || 'No commit message'
     case 'PullRequestEvent':
-      return payload.pull_request.title
+      return payload.pull_request?.title || `pull request on ${repo.name}`
     case 'WatchEvent':
       return `starred ${repo.name}`
     default:
@@ -19,11 +19,11 @@ const getMessage = (type, payload, repo) => {
 const getUrl = (type, payload, repo) => {
   switch (type) {
     case 'PushEvent':
-      return payload.commits?.[0].url
+      return payload.commits?.[0]?.url
         ? normalizeGitHubCommitUrl(payload.commits[0].url)
-        : 'https://github.com/hackclub'
+        : `https://github.com/${repo.name}`
     case 'PullRequestEvent':
-      return payload.pull_request.html_url
+      return payload.pull_request?.html_url || `https://github.com/${repo.name}`
     case 'WatchEvent':
       return `https://github.com/${repo.name}`
     default:
@@ -32,22 +32,32 @@ const getUrl = (type, payload, repo) => {
 }
 
 export async function fetchGitHub() {
-  const initialGitHubData = await fetch(
-    'https://api.github.com/orgs/hackclub/events'
-  ).then(r => r.json())
+  try {
+    const headers = { accept: 'application/vnd.github+json' }
+    if (process.env.GITHUB_TOKEN) {
+      headers.authorization = `token ${process.env.GITHUB_TOKEN}`
+    }
+    const res = await fetch('https://api.github.com/orgs/hackclub/events', {
+      headers
+    })
+    if (!res.ok) return []
+    const initialGitHubData = await res.json()
+    if (!Array.isArray(initialGitHubData)) return []
 
-  const gitHubData = initialGitHubData
-    .filter(({ type }) => isRelevantEventType(type))
-    .map(({ type, actor, payload, repo, created_at }) => ({
-      type,
-      user: actor.login,
-      userImage: actor.avatar_url,
-      url: getUrl(type, payload, repo),
-      message: getMessage(type, payload, repo),
-      time: created_at
-    }))
-
-  return gitHubData
+    return initialGitHubData
+      .filter(({ type }) => isRelevantEventType(type))
+      .map(({ type, actor, payload, repo, created_at }) => ({
+        type,
+        user: actor.login,
+        userImage: actor.avatar_url,
+        url: getUrl(type, payload, repo) ?? `https://github.com/hackclub`,
+        message: getMessage(type, payload, repo) ?? '',
+        time: created_at
+      }))
+  } catch (err) {
+    console.warn('Failed to fetch GitHub events:', err.message)
+    return []
+  }
 }
 
 export default async function github(req, res) {

@@ -7,6 +7,7 @@ import RelativeTime from 'react-relative-time'
 /** @jsxImportSource theme-ui */
 
 function Game({ game, gameImage, gameImage1, ...props }) {
+  if (!game) return null
   return (
     <Box
       as="div"
@@ -159,7 +160,12 @@ function Game({ game, gameImage, gameImage1, ...props }) {
               mb: 1
             }}
           >
-            <RelativeTime value={game['added on']} titleFormat="YYYY-MM-DD" />
+            {(game['added on'] || game.addedOn) && (
+              <RelativeTime
+                value={game['added on'] || game.addedOn}
+                titleFormat="YYYY-MM-DD"
+              />
+            )}
           </Text>
         </Box>
       </Box>

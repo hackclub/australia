@@ -239,18 +239,32 @@ const Page = ({ repos, transparentAccounts }) => (
 export default Page
 
 export async function getStaticProps() {
-  const octokit = new Octokit({
-    auth: process.env.GITHUB
-  })
-  const repos = await octokit.paginate('GET /orgs/{org}/repos', {
-    org: 'hackclub'
-  })
+  let repos = []
+  const githubToken = process.env.GITHUB_TOKEN || process.env.GITHUB
 
-  const transparentAccounts = (
-    await fetch('https://hcb.hackclub.com/api/v3/organizations').then(res =>
-      res.json()
+  try {
+    const octokit = new Octokit({
+      auth: githubToken
+    })
+    repos = await octokit.paginate('GET /orgs/{org}/repos', {
+      org: 'hackclub'
+    })
+  } catch (error) {
+    console.warn('Failed to fetch Hack Club GitHub repos for /opensource', error)
+  }
+
+  let transparentAccounts = []
+  try {
+    const response = await fetch('https://hcb.hackclub.com/api/v3/organizations')
+    transparentAccounts = (await response.json()).filter(
+      account => account.category?.replaceAll(' ', '_') === 'hack_club_hq'
     )
-  ).filter(account => account.category?.replaceAll(' ', '_') === 'hack_club_hq')
+  } catch (error) {
+    console.warn(
+      'Failed to fetch Hack Club transparency accounts for /opensource',
+      error
+    )
+  }
 
   return { props: { repos, transparentAccounts }, revalidate: 30 }
 }
