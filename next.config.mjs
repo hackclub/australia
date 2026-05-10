@@ -1,31 +1,34 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  eslint: {
-    ignoreDuringBuilds: true
-  },
   trailingSlash: true,
   pageExtensions: ['js', 'jsx', 'mdx'],
-  images: {
-    domains: [
-      'hackclub.com',
-      'dl.airtable.com',
-      'emoji.slack-edge.com',
-      'cdn.glitch.com',
-      'scrapbook.hackclub.com',
-      'assets.hackclub.com',
-      'v5.airtableusercontent.com',
-      ''
-    ],
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'cloud-*-hack-club-bot.vercel.app'
-      }
-    ]
+  transpilePackages: ['animejs'],
+  turbopack: {
+    resolveAlias: {
+      'react-reveal': './lib/react-reveal-stub.js',
+      'react-reveal/Fade': './lib/react-reveal-stub.js',
+      'react-reveal/Slide': './lib/react-reveal-stub.js',
+      'react-reveal/Zoom': './lib/react-reveal-stub.js',
+      'react-reveal/Flip': './lib/react-reveal-stub.js',
+      'react-reveal/Rotate': './lib/react-reveal-stub.js',
+      'react-reveal/Bounce': './lib/react-reveal-stub.js',
+      'react-reveal/LightSpeed': './lib/react-reveal-stub.js',
+      'react-reveal/Roll': './lib/react-reveal-stub.js',
+      'react-reveal/Reveal': './lib/react-reveal-stub.js'
+    }
   },
-  webpack: (config, { isServer }) => {
-    return config
+  images: {
+    remotePatterns: [
+      { protocol: 'https', hostname: 'hackclub.com' },
+      { protocol: 'https', hostname: 'dl.airtable.com' },
+      { protocol: 'https', hostname: 'emoji.slack-edge.com' },
+      { protocol: 'https', hostname: 'cdn.glitch.com' },
+      { protocol: 'https', hostname: 'scrapbook.hackclub.com' },
+      { protocol: 'https', hostname: 'assets.hackclub.com' },
+      { protocol: 'https', hostname: 'v5.airtableusercontent.com' },
+      { protocol: 'https', hostname: 'cloud-*-hack-club-bot.vercel.app' }
+    ]
   },
   async redirects() {
     return [
@@ -283,13 +286,8 @@ const nextConfig = {
   }
 }
 
-import million from 'million/compiler'
 import withMDX from '@next/mdx'
-import withTM from 'next-transpile-modules'
 
 const withMDXConfig = withMDX({ extension: /\.mdx?$/ })
-const withAnimeJS = withTM(['animejs'])
 
-export default million.next(withAnimeJS(withMDXConfig(nextConfig)), {
-  auto: true
-})
+export default withMDXConfig(nextConfig)
