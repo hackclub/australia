@@ -12,7 +12,6 @@
     "format": "prettier --write ."
   },
   "dependencies": {
-    "@apollo/client": "^3.14.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@github/time-elements": "^4.0.0",
