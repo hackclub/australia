@@ -23,9 +23,7 @@ const getUrl = (type, payload, repo) => {
         ? normalizeGitHubCommitUrl(payload.commits[0].url)
         : `https://github.com/${repo.name}`
     case 'PullRequestEvent':
-      return (
-        payload.pull_request?.html_url || `https://github.com/${repo.name}`
-      )
+      return payload.pull_request?.html_url || `https://github.com/${repo.name}`
     case 'WatchEvent':
       return `https://github.com/${repo.name}`
     default:
