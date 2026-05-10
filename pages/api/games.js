@@ -1,12 +1,29 @@
+const SPRIG_GALLERY_URL = 'https://sprig.hackclub.com/api/gallery'
+
 export async function getGames() {
-  let games = await fetch(
-    'https://raw.githubusercontent.com/hackclub/sprig/main/games/metadata.json'
-  ).then(res => res.json())
-  games = games
-    .sort((a, b) => new Date(b.addedOn) - new Date(a.addedOn))
-    .slice(-4)
+  const response = await fetch(SPRIG_GALLERY_URL)
+
+  if (!response.ok) {
+    console.warn(
+      `Failed to fetch Sprig gallery metadata: ${response.status} ${response.statusText}`
+    )
+    return []
+  }
+
+  const games = await response.json()
+
+  if (!Array.isArray(games)) {
+    console.warn('Sprig gallery metadata response was not an array')
+    return []
+  }
 
   return games
+    .sort(
+      (a, b) =>
+        new Date(b.addedOn || b['added on']) -
+        new Date(a.addedOn || a['added on'])
+    )
+    .slice(0, 4)
 }
 
 export default async function Games(req, res) {

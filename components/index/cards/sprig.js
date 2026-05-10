@@ -7,6 +7,8 @@ import RelativeTime from 'react-relative-time'
 /** @jsxImportSource theme-ui */
 
 function Game({ game, gameImage, gameImage1, ...props }) {
+  const addedOn = game?.addedOn || game?.['added on']
+
   return (
     <Box
       as="div"
@@ -148,19 +150,21 @@ function Game({ game, gameImage, gameImage1, ...props }) {
           >
             by {game?.author}
           </Text>
-          <Text
-            as="span"
-            sx={{
-              fontWeight: '300',
-              fontSize: '0.8rem',
-              color: 'snow',
-              padding: 0,
-              opacity: 0.3,
-              mb: 1
-            }}
-          >
-            <RelativeTime value={game['added on']} titleFormat="YYYY-MM-DD" />
-          </Text>
+          {addedOn && (
+            <Text
+              as="span"
+              sx={{
+                fontWeight: '300',
+                fontSize: '0.8rem',
+                color: 'snow',
+                padding: 0,
+                opacity: 0.3,
+                mb: 1
+              }}
+            >
+              <RelativeTime value={addedOn} titleFormat="YYYY-MM-DD" />
+            </Text>
+          )}
         </Box>
       </Box>
     </Box>
