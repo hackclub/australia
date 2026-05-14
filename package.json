@@ -67,7 +67,7 @@
     "swr": "^2.2.4",
     "theme-ui": "^0.14",
     "tinytime": "^0.2.6",
-    "turndown": "^7.1.2",
+    "turndown": "^7.2.4",
     "vanilla-tilt": "^1.8.1",
     "yarn": "^1.22.21"
   },
